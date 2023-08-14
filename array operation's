@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+
+int insertElement(int arr[], int size, int index, int value) {
+    if (index < 0 || index > size) {
+        return -1;  // Invalid index
+    }
+
+  
+    for (int i = size - 1; i >= index; i--) {
+        arr[i + 1] = arr[i];
+    }
+
+    arr[index] = value;
+    return size + 1;
+}
+
+int deleteElement(int arr[], int size, int index) {
+    if (index < 0 || index >= size) {
+        return -1;  // Invalid index
+    }
+
+    // Shift elements to the left to fill the gap left by the deleted element
+    for (int i = index; i < size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+
+    return size - 1;
+}
+
+int searchElement(int arr[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            return i;  // Element found at index i
+        }
+    }
+    return -1;  
+}
+
+int main() {
+    int arr[10] = {10, 20, 30, 40, 50};
+    int size = 5;
+
+    printf("Original Array: ");
+    printArray(arr, size);
+
+    
+    size = insertElement(arr, size, 2, 25);
+    printf("Array after insertion: ");
+    printArray(arr, size);
+
+  
+    size = deleteElement(arr, size, 3);
+    printf("Array after deletion: ");
+    printArray(arr, size);
+
+  
+    int target = 30;
+    int index = searchElement(arr, size, target);
+    if (index != -1) {
+        printf("Element %d found at index %d\n", target, index);
+    } else {
+        printf("Element %d not found in the array\n", target);
+    }
+
+    return 0;
+}
